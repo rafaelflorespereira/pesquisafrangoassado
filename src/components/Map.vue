@@ -1,25 +1,17 @@
 <template>
   <div>
-    <h1>
-      Your coordinates are Longitude {{ userCoordinates.lng }} Latitude
-      {{ userCoordinates.lat }}
-    </h1>
-    <GmapAutocomplete class="introInput">
-      <template v-slot:input="slotProps">
-        <v-text-field
-          outlined
-          prepend-inner-icon="place"
-          placeholder="Location Of Event"
-          ref="input"
-          v-on:listeners="slotProps.listeners"
-          v-on:attrs="slotProps.attrs"
-        >
-        </v-text-field>
-      </template>
-    </GmapAutocomplete>
+    <h2>O restaurante selecionado é o Frango Assado mais próximo de você!</h2>
+    <br />
+    <p>User actual Coordinates {{ userCoordinates }}</p>
+    <p>User initial Coordinates {{ userCoordinatesInitial }}</p>
+    <gmap-autocomplete
+      placeholder="Selecione Endereco Gmap"
+      @place_changed="setPlace"
+      :select-first-on-enter="true"
+    ></gmap-autocomplete>
     <GmapMap
       :center="{ lat: userCoordinates.lat, lng: userCoordinates.lng }"
-      :zoom="15"
+      :zoom="10"
       class="Map"
     >
       <GmapInfoWindow
@@ -30,7 +22,10 @@
       >
         <div class="info-window">
           <h2>{{ activeRestaurant.name }}</h2>
-          <h5>{{ activeRestaurant.endereco }}</h5>
+          <br />
+          <h5>
+            {{ activeRestaurant.endereco }}
+          </h5>
           <p>{{ activeRestaurant.cep }}</p>
           <p>{{ activeRestaurant.horario }}</p>
           <p>
@@ -51,12 +46,14 @@
       <GmapMarker
         v-for="(restaurant, index) in restaurants"
         :key="index"
+        icon="logo_frango_assado.svg"
         :position="{ lat: restaurant.lat, lng: restaurant.lng }"
         :draggable="false"
         :clickable="true"
         @click="openRestaurantMarker(restaurant)"
       />
     </GmapMap>
+    {{ autoCompleteAdress.geometry }}
   </div>
 </template>
 
@@ -65,22 +62,25 @@ import locations from "../data/RestaurantLocations";
 export default {
   data: () => {
     return {
-      userCoordinates: {
+      userCoordinatesInitial: {
         lat: 0,
         lng: 0,
       },
       restaurants: [],
-      infoWindowOpened: false,
+      infoWindowOpened: true,
       infoWindowOptions: {
         pixelOffset: {
           width: 0,
-          height: -35,
+          height: -70,
         },
       },
       activeRestaurant: {
         lat: 0,
         lng: 0,
       },
+      closest: 1000000,
+      mapCenter: {},
+      autoCompleteAdress: "",
     };
   },
   created() {
@@ -91,12 +91,25 @@ export default {
     //this should overwrite the user location
     this.$getLocation({})
       .then((coordinates) => {
-        this.userCoordinates = coordinates;
+        this.userCoordinatesInitial = coordinates;
       })
       .catch((error) => alert(error));
   },
   mounted() {
     this.restaurants = locations;
+    this.restaurants.forEach((r) => {
+      const distance = this.getDistanceFromLatLonInKm(
+        r.lat,
+        r.lng,
+        this.userCoordinates.lat,
+        this.userCoordinates.lng
+      );
+      if (distance < this.closest) {
+        this.closest = distance;
+        this.activeRestaurant = r;
+        this.mapCenter = { lat: r.lat, lng: r.lng };
+      }
+    });
   },
   methods: {
     openRestaurantMarker(restaurant) {
@@ -127,6 +140,9 @@ export default {
     deg2rad(deg) {
       return deg * (Math.PI / 180);
     },
+    setPlace(place) {
+      this.autoCompleteAdress = place;
+    },
   },
   computed: {
     infoWindowPosition() {
@@ -134,6 +150,13 @@ export default {
         lat: this.activeRestaurant.lat,
         lng: this.activeRestaurant.lng,
       };
+    },
+    userCoordinates() {
+      if (this.autoCompleteAdress) {
+        return this.autoCompleteAdress.geometry.location;
+      } else {
+        return this.userCoordinatesInitial;
+      }
     },
   },
 };
@@ -146,5 +169,10 @@ export default {
   position: relative;
   margin: 0 50%;
   left: -40vw;
+}
+.info-window {
+  padding: 0;
+  margin: 0;
+  width: 240px;
 }
 </style>

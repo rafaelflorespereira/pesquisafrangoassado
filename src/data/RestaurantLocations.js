@@ -36,7 +36,7 @@ const locations = [
     endereco: "ROD. DOS BANDEIRANTES KM 72 - SERRA AZUL - ITUPEVA CEP 13295-000",
     horario: "Aberto das 6h ás 22h",
     cep: "CEP 13295-000",
-    lat: 23.1051453, // ce pa eh menos...
+    lat: -23.1051453, // ce pa eh menos...
     lng: -47.0073719,
   },
   {
