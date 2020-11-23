@@ -1,14 +1,23 @@
 <template>
   <div>
     <h2>O restaurante selecionado é o Frango Assado mais próximo de você!</h2>
-    <br />
-    <p>User actual Coordinates {{ userCoordinates }}</p>
-    <p>User initial Coordinates {{ userCoordinatesInitial }}</p>
-    <gmap-autocomplete
+    <span class="header-text">
+      <h3>Coordenadas do Usuario</h3>
+      <p>{{ userCoordinates.lat }}, {{ userCoordinates.lng }}</p>
+    </span>
+    <span class="header-text">
+      <h3>Restaurante Ativo</h3>
+      <p>{{ activeRestaurant.lat }}, {{ activeRestaurant.lng }}</p>
+    </span>
+    <span class="header-text">
+      <h3>Distancia do Restaurante</h3>
+      <p>{{ distanceFromRestaurant }}</p>
+    </span>
+    <GmapAutocomplete
       placeholder="Selecione Endereco Gmap"
       @place_changed="setPlace"
       :select-first-on-enter="true"
-    ></gmap-autocomplete>
+    ></GmapAutocomplete>
     <GmapMap
       :center="{ lat: userCoordinates.lat, lng: userCoordinates.lng }"
       :zoom="10"
@@ -28,17 +37,7 @@
           </h5>
           <p>{{ activeRestaurant.cep }}</p>
           <p>{{ activeRestaurant.horario }}</p>
-          <p>
-            {{
-              getDistanceFromLatLonInKm(
-                activeRestaurant.lat,
-                activeRestaurant.lng,
-                userCoordinates.lat,
-                userCoordinates.lng
-              ).toFixed(3)
-            }}
-            km
-          </p>
+          <p>{{ distanceFromRestaurant }} km</p>
         </div>
       </GmapInfoWindow>
       <GmapMarker :position="userCoordinates" :draggable="true" />
@@ -158,6 +157,14 @@ export default {
         return this.userCoordinatesInitial;
       }
     },
+    distanceFromRestaurant() {
+      return this.getDistanceFromLatLonInKm(
+        this.activeRestaurant.lat,
+        this.activeRestaurant.lng,
+        this.userCoordinates.lat,
+        this.userCoordinates.lng
+      ).toFixed(3);
+    },
   },
 };
 </script>
@@ -174,5 +181,10 @@ export default {
   padding: 0;
   margin: 0;
   width: 240px;
+}
+.header-text {
+  display: block;
+  text-align: left;
+  margin: 0 20vw;
 }
 </style>
