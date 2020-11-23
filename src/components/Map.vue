@@ -53,7 +53,6 @@
         @click="openRestaurantMarker(restaurant)"
       />
     </GmapMap>
-    {{ autoCompleteAdress }}
   </div>
 </template>
 
@@ -151,7 +150,12 @@ export default {
     },
     userCoordinates() {
       if (this.autoCompleteAdress) {
-        return this.autoCompleteAdress;
+        const lat = this.autoCompleteAdress.geometry["location"].lat();
+        const lng = this.autoCompleteAdress.geometry["location"].lng();
+        return {
+          lat,
+          lng,
+        };
       } else {
         return this.userCoordinatesInitial;
       }
