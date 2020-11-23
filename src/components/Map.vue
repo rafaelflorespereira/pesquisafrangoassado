@@ -1,19 +1,12 @@
 <template>
   <div>
     <h2>O restaurante selecionado é o Frango Assado mais próximo de você!</h2>
-    <span class="header-text">
-      <h3>Coordenadas do Usuario</h3>
-      <p>{{ userCoordinates.lat }}, {{ userCoordinates.lng }}</p>
-    </span>
-    <span class="header-text">
-      <h3>Restaurante Ativo</h3>
-      <p>{{ activeRestaurant.lat }}, {{ activeRestaurant.lng }}</p>
-    </span>
-    <span class="header-text">
-      <h3>Distancia do Restaurante</h3>
-      <p>{{ distanceFromRestaurant }}</p>
-    </span>
+    <br />
+    <label for="autocomplete" style="display: block; font-weight: 600"
+      >Selecione seu endereço</label
+    >
     <GmapAutocomplete
+      id="autocomplete"
       placeholder="Selecione Endereco"
       @place_changed="setPlace"
       :select-first-on-enter="true"
@@ -194,6 +187,8 @@ export default {
   width: 30vw;
   height: 2rem;
   margin: 1rem;
-  padding: 0.25rem;
+  padding: 1rem;
+  border: solid black 2px;
+  border-radius: 100px;
 }
 </style>
