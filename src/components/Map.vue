@@ -14,9 +14,10 @@
       <p>{{ distanceFromRestaurant }}</p>
     </span>
     <GmapAutocomplete
-      placeholder="Selecione Endereco Gmap"
+      placeholder="Selecione Endereco"
       @place_changed="setPlace"
       :select-first-on-enter="true"
+      class="autocomplete"
     ></GmapAutocomplete>
     <GmapMap
       :center="{ lat: userCoordinates.lat, lng: userCoordinates.lng }"
@@ -52,7 +53,7 @@
         @click="openRestaurantMarker(restaurant)"
       />
     </GmapMap>
-    {{ autoCompleteAdress.geometry }}
+    {{ autoCompleteAdress }}
   </div>
 </template>
 
@@ -83,11 +84,6 @@ export default {
     };
   },
   created() {
-    //get user coordinates
-    //get restaurants coordinates
-    //get closest restaurants
-    //add google-autcomplete component to make a better user location.
-    //this should overwrite the user location
     this.$getLocation({})
       .then((coordinates) => {
         this.userCoordinatesInitial = coordinates;
@@ -139,6 +135,9 @@ export default {
     deg2rad(deg) {
       return deg * (Math.PI / 180);
     },
+    //!CHANGE HERE TO THE EXAT LOCATION LAT AND LNG OF THE ACTIVE RESTAURANT
+    //? what format is this place returning?
+    //? Does it need to be parsed on any way?
     setPlace(place) {
       this.autoCompleteAdress = place;
     },
@@ -152,7 +151,7 @@ export default {
     },
     userCoordinates() {
       if (this.autoCompleteAdress) {
-        return this.autoCompleteAdress.geometry.location;
+        return this.autoCompleteAdress;
       } else {
         return this.userCoordinatesInitial;
       }
@@ -186,5 +185,11 @@ export default {
   display: block;
   text-align: left;
   margin: 0 20vw;
+}
+.autocomplete {
+  width: 30vw;
+  height: 2rem;
+  margin: 1rem;
+  padding: 0.25rem;
 }
 </style>
