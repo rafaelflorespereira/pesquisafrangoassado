@@ -10,6 +10,7 @@
       placeholder="Selecione Endereco"
       @place_changed="setPlace"
       :select-first-on-enter="true"
+      country="br"
       class="autocomplete"
     ></GmapAutocomplete>
     <GmapMap
@@ -32,6 +33,12 @@
           <p>{{ activeRestaurant.cep }}</p>
           <p>{{ activeRestaurant.horario }}</p>
           <p>{{ distanceFromRestaurant }} km</p>
+
+          <span
+            style="cursor: pointer"
+            @click="redirecionaGoogleMaps()"
+            class="mdi mdi-google-maps"
+          ></span>
         </div>
       </GmapInfoWindow>
       <GmapMarker :position="userCoordinates" :draggable="true" />
@@ -39,13 +46,14 @@
       <GmapMarker
         v-for="(restaurant, index) in restaurants"
         :key="index"
-        icon="logo_frango_assado.svg"
+        icon="logodofrango.svg"
         :position="{ lat: restaurant.lat, lng: restaurant.lng }"
         :draggable="false"
         :clickable="true"
         @click="openRestaurantMarker(restaurant)"
       />
     </GmapMap>
+    {{ userCoordinates }}
   </div>
 </template>
 
@@ -133,6 +141,12 @@ export default {
     setPlace(place) {
       this.autoCompleteAdress = place;
     },
+    redirecionaGoogleMaps() {
+      window.open(
+        `https://www.google.com/maps/dir/${this.userCoordinates.lat},${this.userCoordinates.lng}/${this.activeRestaurant.lat},${this.activeRestaurant.lng}`
+      );
+      console.log(this.activeRestaurant);
+    },
   },
   computed: {
     infoWindowPosition() {
@@ -190,5 +204,8 @@ export default {
   padding: 1rem;
   border: solid black 2px;
   border-radius: 100px;
+}
+.mdi-google-maps:hover {
+  color: green;
 }
 </style>
