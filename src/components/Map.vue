@@ -23,6 +23,7 @@
         :position="infoWindowPosition"
         :opened="infoWindowOpened"
         @closeclick="closeRestaurantMarker"
+        style="min-width: 100vw;"
       >
         <div class="info-window">
           <h2>{{ activeRestaurant.name }}</h2>
@@ -34,11 +35,10 @@
           <p>{{ activeRestaurant.horario }}</p>
           <p>{{ distanceFromRestaurant }} km</p>
 
-          <span
-            style="cursor: pointer"
-            @click="redirecionaGoogleMaps()"
-            class="mdi mdi-google-maps"
-          ></span>
+          <p class="ver-maps" @click="redirecionaGoogleMaps()">
+            Ver no maps
+            <span class="mdi mdi-google-maps"></span>
+          </p>
         </div>
       </GmapInfoWindow>
       <GmapMarker :position="userCoordinates" :draggable="true" />
@@ -53,7 +53,6 @@
         @click="openRestaurantMarker(restaurant)"
       />
     </GmapMap>
-    {{ userCoordinates }}
   </div>
 </template>
 
@@ -190,7 +189,6 @@ export default {
 .info-window {
   padding: 0;
   margin: 0;
-  width: 240px;
 }
 .header-text {
   display: block;
@@ -205,7 +203,13 @@ export default {
   border: solid black 2px;
   border-radius: 100px;
 }
-.mdi-google-maps:hover {
+.mdi-google-maps:hover,
+.ver-maps:hover {
   color: green;
+}
+.ver-maps {
+  font-style: italic;
+  cursor: pointer;
+  font-weight: 600;
 }
 </style>
