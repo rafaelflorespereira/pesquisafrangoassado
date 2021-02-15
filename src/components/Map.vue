@@ -195,14 +195,22 @@ export default {
   text-align: left;
   margin: 0 20vw;
 }
+
 .autocomplete {
-  width: 30vw;
+  width: 80vw;
   height: 2rem;
   margin: 1rem;
   padding: 1rem;
   border: solid black 2px;
   border-radius: 100px;
 }
+
+@media only screen and (min-width: 600px) {
+  .autocomplete {
+    width: 40vw;
+  }
+}
+
 .mdi-google-maps:hover,
 .ver-maps:hover {
   color: green;
