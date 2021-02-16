@@ -26,12 +26,10 @@ export default {
 
 <style lang="scss">
 .card-group {
-  background-color: orangered;
   overflow: auto;
-  width: 100vw;
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 .card {
   &__info {
