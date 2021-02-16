@@ -1,8 +1,13 @@
 <template>
   <div>
-    <h2>O restaurante selecionado é o Frango Assado mais próximo de você!</h2>
+    <h2 class="map__text" style="padding-top: 60px;">
+      O restaurante selecionado é o Frango Assado mais próximo de você!
+    </h2>
     <br />
-    <label for="autocomplete" style="display: block; font-weight: 600"
+    <label
+      for="autocomplete"
+      class="map__text"
+      style="display: block; font-weight: 600"
       >Selecione seu endereço</label
     >
     <GmapAutocomplete
@@ -219,5 +224,8 @@ export default {
   font-style: italic;
   cursor: pointer;
   font-weight: 600;
+}
+.map__text {
+  color: #fff5ee;
 }
 </style>

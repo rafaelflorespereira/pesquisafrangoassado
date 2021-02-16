@@ -41,6 +41,9 @@ export default {
     box-shadow: 0 1.5rem 2rem rgba(#000, 0.4);
     padding: 1rem;
     transition: all 0.2s;
+    @media (max-width: 600px) {
+      width: 80%;
+    }
     &:hover {
       box-shadow: 0 2.5rem 2.5rem rgba(#000, 0.4);
       transform: translateY(-0.4rem);
