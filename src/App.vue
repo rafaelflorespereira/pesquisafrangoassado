@@ -1,15 +1,18 @@
 <template>
   <div id="app">
     <Map />
+    <InfoMaps />
   </div>
 </template>
 
 <script>
 import Map from "./components/Map.vue";
+import InfoMaps from "./components/InfoMaps";
 export default {
   name: "App",
   components: {
     Map,
+    InfoMaps,
   },
 };
 </script>
