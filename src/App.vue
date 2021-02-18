@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Map style="margin-bottom: 60px;" />
-    <RestaurantInfo />
+    <Map style="margin-bottom: 60px;" @userDirection="getUserDirection" />
+    <RestaurantInfo :userDirections="userDirections" />
   </div>
 </template>
 
@@ -13,6 +13,19 @@ export default {
   components: {
     Map,
     RestaurantInfo,
+  },
+  data: () => {
+    return {
+      userDirections: {
+        lat: 0,
+        lng: 0,
+      },
+    };
+  },
+  methods: {
+    getUserDirection(userDirection) {
+      this.userDirections = userDirection;
+    },
   },
 };
 </script>

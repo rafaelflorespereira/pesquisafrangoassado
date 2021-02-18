@@ -28,7 +28,6 @@
         :position="infoWindowPosition"
         :opened="infoWindowOpened"
         @closeclick="closeRestaurantMarker"
-        style="min-width: 100vw;"
       >
         <div class="info-window">
           <h2>{{ activeRestaurant.name }}</h2>
@@ -163,11 +162,16 @@ export default {
       if (this.autoCompleteAdress) {
         const lat = this.autoCompleteAdress.geometry["location"].lat();
         const lng = this.autoCompleteAdress.geometry["location"].lng();
+        this.$emit("userDirection", {
+          lat,
+          lng,
+        });
         return {
           lat,
           lng,
         };
       } else {
+        this.$emit("userDirection", this.userCoordinatesInitial);
         return this.userCoordinatesInitial;
       }
     },
@@ -210,9 +214,14 @@ export default {
   border-radius: 100px;
 }
 
-@media only screen and (min-width: 600px) {
+@media (max-width: 320px) {
   .autocomplete {
-    width: 40vw;
+    width: 90vw;
+    margin: 1rem 0.5rem;
+    padding: 0.25rem;
+  }
+  .gm-style {
+    min-width: 100vw;
   }
 }
 
