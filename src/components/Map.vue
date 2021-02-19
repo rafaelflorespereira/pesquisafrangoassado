@@ -62,6 +62,7 @@
 
 <script>
 import locations from "../data/RestaurantLocations";
+import axios from "axios";
 export default {
   data: () => {
     return {
@@ -87,9 +88,13 @@ export default {
     };
   },
   created() {
-    this.$getLocation({})
-      .then((coordinates) => {
-        this.userCoordinatesInitial = coordinates;
+    axios
+      .get("https://ipinfo.io?token=75de4d9a5f31fb")
+      .then((response) => {
+        var location = response.data.loc.split(",");
+        this.userCoordinatesInitial.lat = parseFloat(location[0]);
+        this.userCoordinatesInitial.lng = parseFloat(location[1]);
+        console.log(location);
       })
       .catch((error) => alert(error));
   },
