@@ -6,6 +6,7 @@ const locations = [
     cep: "CEP 13290-000",
     lat: -23.0870023,
     lng: -46.9743488,
+    icons: ["combustivel", "servicos", "lojas", "wifi"],
   },
   {
     name: "Anhanguera - Sumaré",
@@ -14,6 +15,7 @@ const locations = [
     cep: "CEP 13180-480",
     lat: -22.8145974,
     lng: -47.2088047,
+    icons: ["combustivel", "servicos", "wifi"],
   },
   {
     name: "Bandeirantes - Caieiras",
@@ -22,6 +24,7 @@ const locations = [
     cep: "CEP 07700-000",
     lat: -23.3514104,
     lng: -46.79635,
+    icons: ["combustivel", "servicos", "lojas", "wifi"],
   },
   {
     name: "Bandeirantes - Cajamar",
@@ -30,14 +33,17 @@ const locations = [
     cep: "CEP 07760-000",
     lat: -23.2898693,
     lng: -46.8478165,
+    icons: ["servicos", "lojas", "wifi"],
   },
   {
     name: "Bandeirantes - Shopping Serra Azul",
-    endereco: "ROD. DOS BANDEIRANTES KM 72 - SERRA AZUL - ITUPEVA CEP 13295-000",
+    endereco:
+      "ROD. DOS BANDEIRANTES KM 72 - SERRA AZUL - ITUPEVA CEP 13295-000",
     horario: "Aberto das 6h ás 22h",
     cep: "CEP 13295-000",
     lat: -23.1051453, // ce pa eh menos...
     lng: -47.0073719,
+    icons: [],
   },
   {
     name: "Campinas-Mogi - Jaguariúna",
@@ -46,6 +52,7 @@ const locations = [
     cep: "CEP 13820-000",
     lat: -22.7202442,
     lng: -47.0131364,
+    icons: ["combustivel", "lojas"],
   },
   {
     name: "Campinas-Mogi - Mogi-Guaçu",
@@ -54,6 +61,7 @@ const locations = [
     cep: "CEP 13846-901",
     lat: -22.1858855,
     lng: -46.9872172,
+    icons: ["combustivel"],
   },
   {
     name: "Carvalho Pinto - S J Campos",
@@ -62,6 +70,7 @@ const locations = [
     cep: "CEP 12227-788",
     lat: -23.2768284,
     lng: -45.8444615,
+    icons: ["combustivel", "pet", "wifi"],
   },
   {
     name: "Castelo Branco - Cesário Lange",
@@ -70,6 +79,7 @@ const locations = [
     cep: "CEP 18285-000",
     lat: -23.2509677,
     lng: -47.9677086,
+    icons: ["combustivel", "servicos"],
   },
   {
     name: "Castelo Branco - Itu",
@@ -78,6 +88,7 @@ const locations = [
     cep: "CEP 13301-089",
     lat: -23.4090574,
     lng: -47.286712,
+    icons: ["combustivel", "servicos"],
   },
   {
     name: "Castelo Branco - Road Shopping",
@@ -86,6 +97,7 @@ const locations = [
     cep: "CEP 13301-089",
     lat: -23.4090362,
     lng: -47.2780749,
+    icons: [],
   },
   {
     name: "Dom Pedro - Campinas",
@@ -94,6 +106,7 @@ const locations = [
     cep: "CEP 13069-200",
     lat: -22.8560604,
     lng: -47.1330631,
+    icons: [],
   },
   {
     name: "Dom Pedro – Atibaia (sentido Bom J. Perdões)",
@@ -102,6 +115,7 @@ const locations = [
     cep: "CEP 12953-000",
     lat: -23.10967111,
     lng: -46.49843216,
+    icons: ["combustivel", "lojas"],
   },
   {
     name: "Dom Pedro – Atibaia (sentido Campinas)",
@@ -110,6 +124,7 @@ const locations = [
     cep: "CEP 12953-000",
     lat: -23.10783933,
     lng: -46.49923251,
+    icons: ["combustivel", "lojas"],
   },
   {
     name: "Dutra - Aparecida",
@@ -118,6 +133,7 @@ const locations = [
     cep: "CEP 12570-000",
     lat: -22.8744698,
     lng: -45.2680761,
+    icons: [],
   },
   {
     name: "Dutra - Jacareí",
@@ -126,6 +142,7 @@ const locations = [
     cep: "CEP 12321-520",
     lat: -23.3009365,
     lng: -46.0171971,
+    icons: ["combustivel"],
   },
   {
     name: "Dutra - Roseira",
@@ -134,6 +151,7 @@ const locations = [
     cep: "CEP 12580-000",
     lat: -22.9087178,
     lng: -45.3161355,
+    icons: ["combustivel", "servicos", "lojas", "wifi"],
   },
   {
     name: "Dutra - Taubaté",
@@ -142,6 +160,7 @@ const locations = [
     cep: "CEP 12031-770",
     lat: -23.0504219,
     lng: -45.6029238,
+    icons: ["combustivel"],
   },
   {
     name: "Fernão Dias - Cambuí",
@@ -150,6 +169,7 @@ const locations = [
     cep: "CEP 37600-000",
     lat: -22.5279122,
     lng: -46.0262943,
+    icons: [],
   },
   {
     name: "Fernão Dias KM 29 - Atibaia",
@@ -158,6 +178,7 @@ const locations = [
     cep: "CEP 12940-000",
     lat: -23.0436385,
     lng: -46.562475,
+    icons: ["combustivel", "servicos", "wifi"],
   },
   {
     name: "Fernão Dias KM 44 - Atibaia",
@@ -166,6 +187,7 @@ const locations = [
     cep: "CEP 12947-000",
     lat: -23.1621459,
     lng: -46.5734122,
+    icons: [],
   },
   {
     name: "Imigrantes - Cubatão",
@@ -174,6 +196,7 @@ const locations = [
     cep: "CEP 11536-000",
     lat: -23.9143579,
     lng: -46.4416536,
+    icons: ["combustivel"],
   },
   {
     name: "Imigrantes - Diadema",
@@ -182,6 +205,7 @@ const locations = [
     cep: "CEP 09935-000",
     lat: -23.6781618,
     lng: -46.6186262,
+    icons: ["combustivel"],
   },
   {
     name: "Jardim do Trevo – Campinas",
@@ -190,7 +214,8 @@ const locations = [
     cep: "CEP 09935-000",
     lat: -22.9293157,
     lng: -47.0706873,
+    icons: [],
   },
-]
+];
 
-export default locations
+export default locations;

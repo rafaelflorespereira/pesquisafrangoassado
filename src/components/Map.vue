@@ -89,7 +89,7 @@ export default {
   },
   created() {
     axios
-      .get("https://ipinfo.io?token=75de4d9a5f31fb")
+      .get(`https://ipinfo.io?token=75de4d9a5f31fb`)
       .then((response) => {
         var location = response.data.loc.split(",");
         this.userCoordinatesInitial.lat = parseFloat(location[0]);
@@ -217,6 +217,7 @@ export default {
   padding: 1rem;
   border: solid black 2px;
   border-radius: 100px;
+  background: white;
 }
 
 @media (max-width: 320px) {
