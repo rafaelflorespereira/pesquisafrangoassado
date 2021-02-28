@@ -51,6 +51,7 @@ export default {
 </script>
 
 <style lang="scss">
+$animation-delay: 0.5s;
 .card-group {
   overflow: auto;
   display: flex;
@@ -60,6 +61,13 @@ export default {
 .card {
   position: relative;
   overflow: auto;
+  animation: moveInAnimation ease-in 1s forwards;
+  opacity: 0;
+  @for $i from 1 through 24 {
+    &:nth-child(#{$i}) {
+      animation-delay: $i * 0.14s;
+    }
+  }
   &__info {
     position: relative;
     margin: 2rem;
@@ -139,6 +147,17 @@ export default {
         transition: all 0.3s;
       }
     }
+  }
+}
+
+@keyframes moveInAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(45%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>

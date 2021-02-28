@@ -1,28 +1,21 @@
 <template>
   <div>
-    <h2 class="map__text" style="padding-top: 60px;">
+    <h2 class="map__title">
       O restaurante selecionado é o Frango Assado mais próximo de você!
     </h2>
     <br />
-    <label
-      for="autocomplete"
-      class="map__text"
-      style="display: block; font-weight: 600"
+    <label for="autocomplete" class="map__subtitle"
       >Selecione seu endereço</label
     >
     <GmapAutocomplete
       id="autocomplete"
-      placeholder="Selecione Endereco"
+      placeholder="Selecione seu endereço"
       @place_changed="setPlace"
       :select-first-on-enter="true"
       country="br"
       class="autocomplete"
     ></GmapAutocomplete>
-    <GmapMap
-      :center="{ lat: userCoordinates.lat, lng: userCoordinates.lng }"
-      :zoom="10"
-      class="Map"
-    >
+    <GmapMap :center="mapCenter" :zoom="10" class="Map">
       <GmapInfoWindow
         :options="infoWindowOptions"
         :position="infoWindowPosition"
@@ -82,7 +75,6 @@ export default {
         lat: 0,
         lng: 0,
       },
-      closest: 1000000,
       mapCenter: {},
       autoCompleteAdress: "",
     };
@@ -100,19 +92,7 @@ export default {
   },
   mounted() {
     this.restaurants = locations;
-    this.restaurants.forEach((r) => {
-      const distance = this.getDistanceFromLatLonInKm(
-        r.lat,
-        r.lng,
-        this.userCoordinates.lat,
-        this.userCoordinates.lng
-      );
-      if (distance < this.closest) {
-        this.closest = distance;
-        this.activeRestaurant = r;
-        this.mapCenter = { lat: r.lat, lng: r.lng };
-      }
-    });
+    this.getClosestRestaurant();
   },
   methods: {
     openRestaurantMarker(restaurant) {
@@ -126,6 +106,7 @@ export default {
       };
       this.infoWindowOpened = false;
     },
+    //Distance in Km from point A to point B.
     getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
       var R = 6371; // Radius of the earth in km
       var dLat = this.deg2rad(lat2 - lat1); // deg2rad below
@@ -143,11 +124,29 @@ export default {
     deg2rad(deg) {
       return deg * (Math.PI / 180);
     },
+    getClosestRestaurant() {
+      this.infoWindowOpened = true;
+      var closest = 1000000;
+      this.restaurants.forEach((r) => {
+        const distance = this.getDistanceFromLatLonInKm(
+          r.lat,
+          r.lng,
+          this.userCoordinates.lat,
+          this.userCoordinates.lng
+        );
+        if (distance < closest) {
+          closest = distance;
+          this.activeRestaurant = r;
+          this.mapCenter = { lat: r.lat, lng: r.lng };
+        }
+      });
+    },
     //!CHANGE HERE TO THE EXAT LOCATION LAT AND LNG OF THE ACTIVE RESTAURANT
     //? what format is this place returning?
     //? Does it need to be parsed on any way?
     setPlace(place) {
       this.autoCompleteAdress = place;
+      this.getClosestRestaurant();
     },
     redirecionaGoogleMaps() {
       window.open(
@@ -167,14 +166,8 @@ export default {
       if (this.autoCompleteAdress) {
         const lat = this.autoCompleteAdress.geometry["location"].lat();
         const lng = this.autoCompleteAdress.geometry["location"].lng();
-        this.$emit("userDirection", {
-          lat,
-          lng,
-        });
-        return {
-          lat,
-          lng,
-        };
+        this.$emit("userDirection", { lat, lng });
+        return { lat, lng };
       } else {
         this.$emit("userDirection", this.userCoordinatesInitial);
         return this.userCoordinatesInitial;
@@ -192,13 +185,27 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .Map {
   width: 80vw;
   height: 60vh;
   position: relative;
   margin: 0 50%;
   left: -40vw;
+}
+.map {
+  &__title {
+    color: white;
+    padding-top: 60px;
+    @media (max-width: 375px) {
+      padding: 20px 10px;
+    }
+  }
+  &__subtitle {
+    display: block;
+    color: white;
+    font-weight: 600;
+  }
 }
 .info-window {
   padding: 0;
@@ -228,6 +235,7 @@ export default {
   }
   .gm-style {
     min-width: 100vw;
+    min-height: 100vh;
   }
 }
 
