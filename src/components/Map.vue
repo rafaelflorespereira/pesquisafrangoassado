@@ -1,7 +1,9 @@
 <template>
   <div>
     <h2 class="map__title">
-      O restaurante selecionado é o Frango Assado mais próximo de você!
+      O restaurante selecionado é o
+      <span style="color: #ffde17;">Frango Assado</span>
+      mais próximo de você!
     </h2>
     <br />
     <label for="autocomplete" class="map__subtitle"
@@ -187,18 +189,20 @@ export default {
 
 <style lang="scss">
 .Map {
-  width: 80vw;
+  width: 90vw;
   height: 60vh;
   position: relative;
-  margin: 0 50%;
-  left: -40vw;
+  margin: 20px auto 40px;
+  @media (max-width: 375px) {
+    margin: 10px auto 20px;
+  }
 }
 .map {
   &__title {
     color: white;
     padding-top: 60px;
     @media (max-width: 375px) {
-      padding: 20px 10px;
+      padding: 20px 10px 0;
     }
   }
   &__subtitle {
@@ -227,11 +231,11 @@ export default {
   background: white;
 }
 
-@media (max-width: 320px) {
+@media (max-width: 375px) {
   .autocomplete {
     width: 90vw;
-    margin: 1rem 0.5rem;
-    padding: 0.25rem;
+    margin: 0;
+    padding: 0.1rem;
   }
   .gm-style {
     min-width: 100vw;

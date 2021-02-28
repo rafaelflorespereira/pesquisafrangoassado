@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Map style="margin-bottom: 60px;" @userDirection="getUserDirection" />
+    <Map @userDirection="getUserDirection" />
     <RestaurantInfo :userDirections="userDirections" />
   </div>
 </template>

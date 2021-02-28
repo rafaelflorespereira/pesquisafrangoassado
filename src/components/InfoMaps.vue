@@ -1,25 +1,32 @@
 <template>
-  <div class="card-group">
-    <div v-for="restaurant in restaurants" :key="restaurant.name" class="card">
+  <div>
+    <h1 class="heading">Lista de Restaurantes</h1>
+    <div class="card-group">
       <div
-        class="card__info"
-        @click="redirecionaGoogleMaps(restaurant.lat, restaurant.lng)"
+        v-for="restaurant in restaurants"
+        :key="restaurant.name"
+        class="card"
       >
-        <div class="card__info--title" v-text="restaurant.name"></div>
-        <div class="card__info--location" v-text="restaurant.endereco"></div>
-        <div class="card__info--hours" v-text="restaurant.horario"></div>
-        <img
-          v-for="icon in restaurant.icons"
-          :key="icon"
-          class="card__info--icons"
-          :src="getImgUrl(icon)"
-          :alt="icon"
-        />
+        <div
+          class="card__info"
+          @click="redirecionaGoogleMaps(restaurant.lat, restaurant.lng)"
+        >
+          <div class="card__info--title" v-text="restaurant.name"></div>
+          <div class="card__info--location" v-text="restaurant.endereco"></div>
+          <div class="card__info--hours" v-text="restaurant.horario"></div>
+          <img
+            v-for="icon in restaurant.icons"
+            :key="icon"
+            class="card__info--icons"
+            :src="getImgUrl(icon)"
+            :alt="icon"
+          />
 
-        <p class="card__info--redirect">
-          Ir para o maps
-          <span class="mdi mdi-google-maps"></span>
-        </p>
+          <p class="card__info--redirect">
+            Ir para o maps
+            <span class="mdi mdi-google-maps"></span>
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -51,9 +58,17 @@ export default {
 </script>
 
 <style lang="scss">
-$animation-delay: 0.5s;
+.heading {
+  font-size: 2.5rem;
+  color: #ffde17;
+  text-decoration: underline;
+  margin-bottom: 2rem;
+  @media (max-width: 375px) {
+    font-size: 1.4rem;
+    margin: 0;
+  }
+}
 .card-group {
-  overflow: auto;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -153,7 +168,7 @@ $animation-delay: 0.5s;
 @keyframes moveInAnimation {
   0% {
     opacity: 0;
-    transform: translateY(45%);
+    transform: translateY(55%);
   }
   100% {
     opacity: 1;
