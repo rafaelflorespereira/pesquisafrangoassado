@@ -139,9 +139,19 @@ export default {
       font-weight: bold;
       z-index: 1;
       width: 120px;
-      top: 100%;
+      bottom: 180%;
       left: 50%;
       margin-left: -60px;
+      &::after {
+        content: " ";
+        position: absolute;
+        top: 100%; /* At the bottom of the tooltip */
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #a02a2a transparent transparent transparent;
+      }
     }
     &--icons {
       position: relative;
