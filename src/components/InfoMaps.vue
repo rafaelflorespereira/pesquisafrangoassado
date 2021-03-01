@@ -14,13 +14,14 @@
           <div class="card__info--title" v-text="restaurant.name"></div>
           <div class="card__info--location" v-text="restaurant.endereco"></div>
           <div class="card__info--hours" v-text="restaurant.horario"></div>
-          <img
+          <span
+            style="position:relative;"
             v-for="icon in restaurant.icons"
             :key="icon"
-            class="card__info--icons"
-            :src="getImgUrl(icon)"
-            :alt="icon"
-          />
+          >
+            <img class="card__info--icons" :src="getImgUrl(icon)" :alt="icon" />
+            <span class="card__info--tooltip-text">{{ icon }}</span>
+          </span>
 
           <p class="card__info--redirect">
             Ir para o maps
@@ -126,13 +127,33 @@ export default {
         font-size: 0.8rem;
       }
     }
+    &--tooltip-text {
+      visibility: hidden;
+      background-color: #a02a2a;
+      color: white;
+      text-align: center;
+      padding: 5px;
+      border-radius: 6px;
+      position: absolute;
+      font-size: 1rem;
+      font-weight: bold;
+      z-index: 1;
+      width: 120px;
+      top: 100%;
+      left: 50%;
+      margin-left: -60px;
+    }
     &--icons {
       position: relative;
       margin: 0.8rem 0.2rem 0;
       @media (max-width: 600px) {
         margin: 0.2rem;
       }
+      &:hover ~ .card__info--tooltip-text {
+        visibility: visible;
+      }
     }
+
     &:hover > &--redirect {
       &::after {
         width: 100%;
