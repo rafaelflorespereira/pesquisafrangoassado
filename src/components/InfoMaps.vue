@@ -7,10 +7,7 @@
         :key="restaurant.name"
         class="card"
       >
-        <div
-          class="card__info"
-          @click="redirecionaGoogleMaps(restaurant.lat, restaurant.lng)"
-        >
+        <div class="card__info">
           <div class="card__info--title" v-text="restaurant.name"></div>
           <div class="card__info--location" v-text="restaurant.endereco"></div>
           <div class="card__info--hours" v-text="restaurant.horario"></div>
@@ -23,7 +20,10 @@
             <span class="card__info--tooltip-text">{{ icon }}</span>
           </span>
 
-          <p class="card__info--redirect">
+          <p
+            class="card__info--redirect"
+            @click="redirecionaGoogleMaps(restaurant.lat, restaurant.lng)"
+          >
             Ir para o maps
             <span class="mdi mdi-google-maps"></span>
           </p>
@@ -102,9 +102,10 @@ export default {
     &:hover {
       box-shadow: 0 2.5rem 2.5rem rgba(#000, 0.4);
       transform: translateY(-0.4rem);
-      cursor: pointer;
     }
-
+    &:hover &--redirect {
+      color: #a02a2a;
+    }
     &--title {
       font-size: 1.2rem;
       font-weight: bold;
@@ -178,6 +179,9 @@ export default {
       bottom: 1rem;
       left: 50%;
       transform: translateX(-50%);
+      &:hover {
+        cursor: pointer;
+      }
       @media (max-width: 600px) {
         position: relative;
         transform: translateX(0);
